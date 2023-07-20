@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="SD_Images.GUI.View.Components.ImagePreview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:SD_Images.GUI.View.Components" 
+             xmlns:viewmodel="clr-namespace:SD_Images.GUI.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:WebUIImageViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="500">
+    <materialDesign:Card        
+        UniformCornerRadius="5">
+
+        <materialDesign:Card.Style>
+            <Style
+                TargetType="materialDesign:Card">
+
+                <Setter
+                    Property="materialDesign:ElevationAssist.Elevation"
+                    Value="Dp1"/>
+
+                <Style.Triggers>
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+
+                        <Setter
+                            Property="materialDesign:ElevationAssist.Elevation"
+                            Value="Dp5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </materialDesign:Card.Style>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"                         
+                Background="{StaticResource PrimaryHueMidBrush}">
+
+                <StackPanel        
+                    HorizontalAlignment="Left"
+                    MaxWidth="{Binding ElementName=img, Path=ActualWidth}"
+                    Orientation="Vertical">
+                    
+                    <TextBlock                            
+                        TextAlignment="Left"
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Foreground="{StaticResource PrimaryHueMidForegroundBrush}"
+                        Margin="0"
+                        Padding="10 7 10 0"
+                        Text="{Binding Name}"
+                        ToolTip="{Binding Name}"
+                        TextTrimming="CharacterEllipsis"
+                        d:Text="00010-256883227"/>
+
+                    <TextBlock                                              
+                        Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                        Foreground="{StaticResource PrimaryHueMidForegroundBrush}"
+                        Margin="0"
+                        Padding="10 0 10 5"
+                        Text="{Binding Source.Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                </StackPanel>
+            </Border>
+
+            <Rectangle
+                Fill="{Binding ScoreColor}"
+                ToolTip="{Binding Source.ImageRewardScore}"
+                Opacity="0.6"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch"
+                Width="10"
+                Margin="0 0 10 0"                
+                Grid.Row="0" />
+            
+            <Image
+                x:Name="img"
+                MaxHeight="300"                
+                Grid.Row="1"
+                Margin="10"           
+                Source="{Binding Source.Path}" />
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
